@@ -2,24 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Routing\Controller;
-use Laravel\Sanctum\HasApiTokens;
-
+use App\Contracts\RepoInterface;
 
 class UserController extends Controller
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-       
-        return UserResource::collection(User::all());
+    protected $userRepo;
+
+    public function __construct(RepoInterface $repo){
+        $this->userRepo = $repo;
+
     }
 
+
+    public function list()
+    {
+        //$users = $this->userRepo->getAll();
+        //$users = $this->userRepo->find(2);
+        $users = $this->userRepo->select('firstName', 'lastName');
+        
+        /*
+        $response = [];
+        foreach($users as $user) 
+         $response[] = [
+            'firstName' => $user->firstName,
+            'lastName' => $user->lastName,
+         ];
+         */
+
+         return response()->json($users);
+        //return $users;
+    }
 }

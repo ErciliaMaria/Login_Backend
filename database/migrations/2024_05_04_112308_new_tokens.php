@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('token', 64)->unique();
             $table->text('abilities')->nullable();
             $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
-            $table->timestamps();
+            $table->timestamp('expires_at')->nullable(); // Adicionando o campo expires_at
+            $table->timestamps(); // Este método já inclui os campos created_at e updated_at
         });
     }
 
