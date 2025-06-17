@@ -20,17 +20,8 @@ class UserController extends Controller
         //$users = $this->userRepo->getAll();
         //$users = $this->userRepo->find(2);
         $users = $this->userRepo->select('firstName', 'lastName');
-        
-        /*
-        $response = [];
-        foreach($users as $user) 
-         $response[] = [
-            'firstName' => $user->firstName,
-            'lastName' => $user->lastName,
-         ];
-         */
 
          return response()->json($users);
-        //return $users;
+       
     }
 }
